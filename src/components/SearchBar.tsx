@@ -1,9 +1,5 @@
 function SearchBar() {
-    return (
-        <>
-
-        </>
-    )
+  return <div id="search-bar"></div>;
 }
 
 export default SearchBar;

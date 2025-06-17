@@ -1,9 +1,5 @@
 function SoundDialog() {
-    return (
-        <>
-
-        </>
-    )
+  return <div id="sound-dialog"></div>;
 }
 
 export default SoundDialog;

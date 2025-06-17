@@ -1,0 +1,33 @@
+@media screen and (max-aspect-ratio: 1/1) {
+  main {
+    grid-template-areas:
+      "search-bar"
+      "sound-panel";
+    background-color: blue;
+  }
+
+  #directories-panel {
+    position: fixed;
+  }
+
+  #directory-button {
+    width: 50px;
+    height: 50px;
+    position: fixed;
+    mask-image: url(assets/menu.svg);
+    top: 0;
+    left: 0;
+    mask-size: 90%;
+    mask-position: center center;
+
+    background-color: red;
+  }
+
+  #directory-button:hover {
+    cursor: pointer;
+  }
+
+  #directory-button.open {
+    mask-image: url(assets/arrow_back.svg);
+  }
+}

@@ -1,0 +1,8 @@
+@media screen and (min-aspect-ratio: 1/1) {
+  main {
+    grid-template-areas:
+      "directories-panel search-bar"
+      "directories-panel sound-panel";
+    background-color: red;
+  }
+}

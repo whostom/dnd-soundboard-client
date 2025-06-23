@@ -4,13 +4,20 @@ import "./App-desktop.css";
 import DirectoriesPanel from "./components/DirectoriesPanel";
 import SearchBar from "./components/SearchBar";
 import SoundPanel from "./components/SoundPanel";
+import { useState } from "react";
 
 function App() {
+  const [directory, setDirectory] = useState<string | null>(null);
+
   return (
     <main>
-      <DirectoriesPanel />
+      <DirectoriesPanel
+        onDirectoryChange={(name: string) => {
+          setDirectory(name);
+        }}
+      />
       <SearchBar />
-      <SoundPanel />
+      <SoundPanel directoryName={directory} />
     </main>
   );
 }

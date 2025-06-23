@@ -8,11 +8,9 @@
 
   #directories-panel {
     position: fixed;
-    width: 100vw;
-    height: 100vh;
-    left: -100vh;
+    width: min(100vw, 300px);
+    left: calc(-1 * min(100vw, 300px));
     transition: 0.5s;
-    background-color: yellow;
   }
 
   #directories-panel.open {

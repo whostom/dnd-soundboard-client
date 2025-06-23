@@ -6,6 +6,8 @@ main {
 
 #directories-panel {
   grid-area: directories-panel;
+  background-color: yellow;
+  height: 100vh;
 }
 
 #search-bar {

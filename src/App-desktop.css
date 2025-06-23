@@ -5,4 +5,12 @@
       "directories-panel sound-panel";
     background-color: red;
   }
+
+  #directories-panel {
+    position: relative;
+  }
+
+  #directory-button {
+    display: none;
+  }
 }

@@ -8,6 +8,15 @@
 
   #directories-panel {
     position: fixed;
+    width: 100vw;
+    height: 100vh;
+    left: -100vh;
+    transition: 0.5s;
+    background-color: yellow;
+  }
+
+  #directories-panel.open {
+    left: 0;
   }
 
   #directory-button {
@@ -17,6 +26,7 @@
     mask-image: url(assets/menu.svg);
     top: 0;
     left: 0;
+    z-index: 100;
     mask-size: 90%;
     mask-position: center center;
 

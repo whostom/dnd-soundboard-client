@@ -2,6 +2,7 @@ import { useMediaQuery } from "react-responsive";
 import DirectoryToggleButton from "../widgets/DirectoryToggleButton";
 import { useEffect, useState } from "react";
 import fetchToServer from "../fetch-to-server";
+import DirectoryButton from "../widgets/DirectoryButton";
 
 function DirectoriesPanel({
   onDirectoryChange,
@@ -37,7 +38,26 @@ function DirectoriesPanel({
       ) : (
         <></>
       )}
-      <div id="directories-panel" className={open ? "open" : undefined}></div>
+      <div id="directories-panel" className={open ? "open" : undefined}>
+        <span className="header-directories-text">Lista folderów</span>
+        <DirectoryButton onClick={() => {}}>
+          Pokaż wszystkie dźwięki
+        </DirectoryButton>
+        <hr />
+        {allDirectories == undefined ? (
+          <span className="directories-loading">loading...</span>
+        ) : allDirectories.length == 0 ? (
+          <span className="directories-text">
+            Nie ma żadnych istniejących folderów :(
+          </span>
+        ) : (
+          allDirectories.forEach((directory) => (
+            <DirectoryButton onClick={() => {}}>
+              {directory.folder_name}
+            </DirectoryButton>
+          ))
+        )}
+      </div>
     </>
   );
 }

@@ -8,6 +8,30 @@ main {
   grid-area: directories-panel;
   background-color: yellow;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header-directories-text {
+  text-align: right;
+  padding: 10px;
+  padding-left: 50px;
+  font-size: 2em;
+}
+
+hr {
+  display: block;
+  height: 2px;
+  width: 90%;
+  background-color: black;
+  outline: none;
+  border: none;
+}
+
+.directories-loading {
+}
+
+.directories-text {
 }
 
 #search-bar {

@@ -7,17 +7,23 @@ import SoundPanel from "./components/SoundPanel";
 import { useState } from "react";
 
 function App() {
-  const [directory, setDirectory] = useState<string | null>(null);
+  const [directory, setDirectory] = useState<{
+    folder_id: number;
+    folder_name: string;
+  } | undefined>(undefined);
 
   return (
     <main>
       <DirectoriesPanel
-        onDirectoryChange={(name: string) => {
-          setDirectory(name);
+        onDirectoryChange={(directory: {
+          folder_id: number;
+          folder_name: string;
+        }) => {
+          setDirectory(directory);
         }}
       />
       <SearchBar />
-      <SoundPanel directoryName={directory} />
+      <SoundPanel directoryId={directory?.folder_id} />
     </main>
   );
 }

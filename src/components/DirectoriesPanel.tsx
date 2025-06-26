@@ -51,7 +51,7 @@ function DirectoriesPanel({
             Nie ma żadnych istniejących folderów :(
           </span>
         ) : (
-          allDirectories.forEach((directory) => (
+          allDirectories.map((directory) => (
             <DirectoryButton onClick={() => {}}>
               {directory.folder_name}
             </DirectoryButton>

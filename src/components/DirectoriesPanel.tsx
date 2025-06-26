@@ -7,7 +7,10 @@ import DirectoryButton from "../widgets/DirectoryButton";
 function DirectoriesPanel({
   onDirectoryChange,
 }: {
-  onDirectoryChange: (name: string) => void;
+  onDirectoryChange: (directory: {
+    folder_id: number;
+    folder_name: string;
+  }) => void;
 }) {
   const [open, setOpen] = useState<boolean>(false);
   const [allDirectories, setAllDirectories] = useState<
@@ -51,8 +54,13 @@ function DirectoriesPanel({
             Nie ma żadnych istniejących folderów :(
           </span>
         ) : (
-          allDirectories.map((directory) => (
-            <DirectoryButton onClick={() => {}}>
+          allDirectories.map((directory, index) => (
+            <DirectoryButton
+              key={index}
+              onClick={() => {
+                onDirectoryChange(directory);
+              }}
+            >
               {directory.folder_name}
             </DirectoryButton>
           ))

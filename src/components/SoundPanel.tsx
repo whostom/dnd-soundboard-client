@@ -1,17 +1,48 @@
 import { useEffect, useState } from "react";
+import fetchToServer from "../fetch-to-server";
+import SoundButton from "../widgets/SoundButton";
 
-function SoundPanel({ directoryName }: { directoryName: string | null }) {
+function SoundPanel({ directoryId }: { directoryId: number | null }) {
   const [sounds, setSounds] = useState<
-    | Array<{ sound_id: number; name: string; icon: string; category: string }>
+    | Array<{
+        sound_id: number;
+        name: string;
+        icon: string;
+        category_id: number;
+      }>
     | undefined
   >(undefined);
 
+  const [categories, setCategories] = useState<
+    { category_id: number; name: string } | undefined
+  >();
+
   useEffect(() => {
     console.log("zmieniam directory");
-  }, [directoryName]);
+    fetchToServer<{
+      success: boolean;
+      result: Array<{
+        sound_id: number;
+        name: string;
+        icon: string;
+        category_id: number;
+      }>;
+    }>("get-sounds", JSON.stringify({ folderId: directoryId })).then(
+      (response) => {
+        console.log(response);
+        setSounds(response.result);
+      },
+    );
+  }, [directoryId]);
   return (
     <div id="sound-panel">
-      {/* {directoryName == undefined ? <span>loading...</span> : directoryName.} */}
+      {sounds == undefined ? (
+        <span>loading...</span>
+      ) : sounds.length == 0 ? (
+        <span>Brak dźwięków do puszczania :(</span>
+      ) : (
+        sounds.map((sound, index) => <SoundButton sound={sound} key={index} />)
+      )}
     </div>
   );
 }

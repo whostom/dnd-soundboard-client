@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import fetchToServer from "../fetch-to-server";
 import SoundButton from "../widgets/SoundButton";
 
-function SoundPanel({ directoryId }: { directoryId: number | null }) {
+function SoundPanel({ directoryId }: { directoryId: number | undefined }) {
   const [sounds, setSounds] = useState<
     | Array<{
         sound_id: number;

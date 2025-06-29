@@ -1,7 +1,7 @@
 @media screen and not (max-aspect-ratio: 1/1) {
   main {
     grid-template-areas:
-      "directories-panel search-bar"
+      "directories-panel search-panel"
       "directories-panel sound-panel";
     grid-template-columns: min(50vw, 300px) 1fr;
     background-color: red;

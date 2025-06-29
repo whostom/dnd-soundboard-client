@@ -1,7 +1,7 @@
 @media screen and (max-aspect-ratio: 1/1) {
   main {
     grid-template-areas:
-      "search-bar"
+      "search-panel"
       "sound-panel";
     background-color: blue;
   }

@@ -1,3 +1,5 @@
+import fetchToServer from "../fetch-to-server";
+
 function SoundButton({
   sound,
 }: {
@@ -8,7 +10,21 @@ function SoundButton({
     category_id: number;
   };
 }) {
-  return <button className="sound-button">{sound.name}</button>;
+  // console.log(sound.sound_id);
+  return (
+    <button
+      className="sound-button"
+      onClick={() => {
+        console.log(sound.sound_id);
+        fetchToServer(
+          "play-sound",
+          JSON.stringify({ soundId: sound.sound_id }),
+        );
+      }}
+    >
+      {sound.name}
+    </button>
+  );
 }
 
 export default SoundButton;

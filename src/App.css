@@ -50,18 +50,13 @@ hr {
   display: flex;
   margin: 0.5em;
   margin-left: 50px;
-  /* justify-content: center; */
   align-items: center;
-  /* padding: */
-  /* opacity: 0.7; */
 }
 
 .search-bar-text-input {
   width: 500px;
-  /* height: 50px; */
   font-size: 1.5em;
   padding: 0.25em;
-  /* border-radius: 2em; */
   border: none;
   outline: none;
   background: transparent;
@@ -71,15 +66,6 @@ hr {
   mask-image: url(assets/search.svg);
   width: 3em;
   height: 3em;
-
-  /* width: 100%; */
-  /* position: absolute; */
-
-  /* left: -50px; */
-  /* right: 100%; */
-  /* z-index: 2; */
-  /* border-radius: 50%; */
-  /* aspect-ratio: 1/1; */
   mask-position: center center;
   mask-repeat: no-repeat;
   mask-size: 80%;

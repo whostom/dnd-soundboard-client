@@ -17,25 +17,35 @@
     left: 0;
   }
 
-  #directory-button {
+  #directory-toggle-button {
     width: 50px;
     height: 50px;
     position: fixed;
-    mask-image: url(assets/menu.svg);
+    /* mask-image: url(assets/menu.svg); */
     top: 0;
     left: 0;
     z-index: 100;
-    mask-size: 90%;
-    mask-position: center center;
-
-    background-color: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* mask-size: 90%; */
+    /* mask-position: center center; */
+    background-color: transparent;
+    border: none;
+    /* background-color: red; */
   }
 
-  #directory-button:hover {
+  #directory-toggle-button:hover {
     cursor: pointer;
   }
 
-  #directory-button.open {
-    mask-image: url(assets/arrow_back.svg);
+  #directory-toggle-button .icon {
+    height: 90%;
+    width: 90%;
+    fill: red;
   }
+
+  /* #directory-toggle-button.open { */
+  /* mask-image: url(assets/arrow_back.svg); */
+  /* } */
 }

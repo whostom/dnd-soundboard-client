@@ -2,7 +2,7 @@ import "./App.css";
 import "./App-mobile.css";
 import "./App-desktop.css";
 import DirectoriesPanel from "./components/DirectoriesPanel";
-import SearchBar from "./components/SearchPanel";
+import SearchPanel from "./components/SearchPanel";
 import SoundPanel from "./components/SoundPanel";
 import { useState } from "react";
 
@@ -25,7 +25,7 @@ function App() {
           setDirectory(directory);
         }}
       />
-      <SearchBar />
+      <SearchPanel />
       <SoundPanel directoryId={directory?.folder_id} />
     </main>
   );

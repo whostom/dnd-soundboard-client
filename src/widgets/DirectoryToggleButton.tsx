@@ -1,4 +1,6 @@
 import { useState } from "react";
+import ArrowBackIcon from "../svg/arrow_back-icon";
+import MenuIcon from "../svg/menu-icon";
 
 function DirectoryToggleButton({
   onClick,
@@ -14,8 +16,10 @@ function DirectoryToggleButton({
         onClick(!open);
       }}
       className={open ? "open" : undefined}
-      id="directory-button"
-    ></button>
+      id="directory-toggle-button"
+    >
+      {open ? <ArrowBackIcon /> : <MenuIcon />}
+    </button>
   );
 }
 

@@ -35,12 +35,19 @@ hr {
 .directories-text {
 }
 
-#search-bar {
-  grid-area: search-bar;
+#search-panel {
+  grid-area: search-panel;
+  display: flex;
+  padding: 0.5em;
+  gap: 0.5em;
+  /* width: 100%; */
 }
 
 #sound-panel {
   grid-area: sound-panel;
+  padding: 20px;
+  display: flex;
+  gap: 20px;
 }
 
 .search-bar {
@@ -48,13 +55,13 @@ hr {
   background-color: rgba(128, 128, 128, 0.75);
   width: max-content;
   display: flex;
-  margin: 0.5em;
   margin-left: 50px;
   align-items: center;
 }
 
 .search-bar-text-input {
-  width: 500px;
+  /* width: 500px; */
+  max-width: 100%;
   font-size: 1.5em;
   padding: 0.25em;
   border: none;
@@ -63,11 +70,106 @@ hr {
 }
 
 .search-bar-submit-button {
-  mask-image: url(assets/search.svg);
   width: 3em;
   height: 3em;
-  mask-position: center center;
-  mask-repeat: no-repeat;
-  mask-size: 80%;
-  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+}
+
+.search-bar-submit-button .search-icon {
+  width: 80%;
+  height: 80%;
+  fill: black;
+}
+
+.new-sound-button {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: rgba(128, 128, 128, 0.75);
+  border: none;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.new-sound-button .add-new-sound-icon {
+  height: 80%;
+  width: 80%;
+  fill: black;
+}
+
+.sound-button {
+  width: 220px;
+  height: 260px;
+  border: none;
+  border-radius: 20px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  justify-content: space-between;
+  position: relative;
+}
+
+.sound-button-menu-button {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.sound-button-menu-button:hover {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.sound-button-menu-button .three-dots-icon {
+  width: 100%;
+  height: 100%;
+}
+
+.sound-button-icon {
+  width: 100%;
+  background-color: red;
+  height: 50%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 80px;
+  border-radius: 15px;
+  /* align-self: center center; */
+}
+
+.sound-button-play-icon {
+  width: 100%;
+  background-color: red;
+  height: 30%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 80px;
+  border-radius: 15px;
+}
+
+.sound-button-play-icon .play-arrow-icon {
+  height: 80%;
+  width: 80%;
+  /* aspect-ratio: 1/1; */
+  fill: white;
 }

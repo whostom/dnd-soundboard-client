@@ -29,6 +29,36 @@ hr {
   border: none;
 }
 
+#sound-dialog {
+  position: fixed;
+  width: 90vw;
+  height: 90vh;
+  background-color: aqua;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  z-index: 101;
+}
+
+.sound-dialog-background {
+  position: fixed;
+  inset: 0;
+  background-color: black;
+  opacity: 0.5;
+  z-index: 100;
+}
+
+.audio-visualizer {
+  width: fit-content;
+  height: fit-content;
+  position: relative;
+}
+
+.over-visualizer-canvas {
+  position: absolute;
+  inset: 0;
+}
+
 .directories-loading {
 }
 
@@ -40,7 +70,6 @@ hr {
   display: flex;
   padding: 0.5em;
   gap: 0.5em;
-  /* width: 100%; */
 }
 
 #sound-panel {

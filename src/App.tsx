@@ -5,6 +5,7 @@ import DirectoriesPanel from "./components/DirectoriesPanel";
 import SearchPanel from "./components/SearchPanel";
 import SoundPanel from "./components/SoundPanel";
 import { useState } from "react";
+import SoundDialog from "./components/SoundDialog";
 
 function App() {
   const [directory, setDirectory] = useState<
@@ -14,6 +15,8 @@ function App() {
       }
     | undefined
   >(undefined);
+
+  const [soundDialogOpen, setSoundDialogOpen] = useState<boolean>(false);
 
   return (
     <main>
@@ -25,7 +28,20 @@ function App() {
           setDirectory(directory);
         }}
       />
-      <SearchPanel />
+      <SearchPanel
+        onNewSoundButtonClick={() => {
+          setSoundDialogOpen(true);
+        }}
+      />
+      {soundDialogOpen ? (
+        <SoundDialog
+          onCloseDialog={() => {
+            setSoundDialogOpen(false);
+          }}
+        />
+      ) : (
+        <></>
+      )}
       <SoundPanel directoryId={directory?.folder_id} />
     </main>
   );

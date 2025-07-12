@@ -1,8 +1,13 @@
 import AddNewSoundIcon from "../svg/add-new-sound-icon";
 
-function NewSoundButton() {
+function NewSoundButton({ onClick }: { onClick: () => void }) {
   return (
-    <button className="new-sound-button">
+    <button
+      onClick={() => {
+        onClick();
+      }}
+      className="new-sound-button"
+    >
       <AddNewSoundIcon />
     </button>
   );

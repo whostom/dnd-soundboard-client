@@ -3,6 +3,7 @@ import { AudioVisualizer } from "react-audio-visualize";
 
 function AudioShow({ audio }: { audio: Blob }) {
   const visualizerRef = useRef<HTMLCanvasElement>(null);
+  const visualizerContainerRef = useRef<HTMLDivElement>(null);
   const overVisualizerCanvasRef = useRef<HTMLCanvasElement>(null);
   // const [audioUrl, setAudioUrl] = useState<string | undefined>(undefined);
   const [playableAudio, setPlayableAudio] = useState<HTMLAudioElement | null>(
@@ -15,8 +16,12 @@ function AudioShow({ audio }: { audio: Blob }) {
   const [width, setWidth] = useState<number>(1000);
   const [height, setHeight] = useState<number>(100);
 
+  function onResize() {
+    if (visualizerContainerRef.current == null) return;
+    setWidth(visualizerContainerRef.current.offsetWidth);
+  }
+
   useEffect(() => {
-    console.log(audio.type);
     const url = URL.createObjectURL(audio);
     // setAudioUrl(url);
     setPlayableAudio(new Audio(url));
@@ -25,18 +30,27 @@ function AudioShow({ audio }: { audio: Blob }) {
   }, [audio]);
 
   useEffect(() => {
-    if (playableAudio == null) {
-      return;
-    }
+    if (playableAudio == null) return;
+    if (visualizerContainerRef.current == null) return;
+
     setPlayerStart(0);
+    // setPlayerStart(2);
+    // setCurrentTime(2);
+    // playableAudio.currentTime = 2;
     setPlayerEnd(playableAudio.duration);
+    // setPlayerEnd(3);
+
+    setWidth(visualizerContainerRef.current.offsetWidth);
+
     const currentTimeInterval = setInterval(() => {
+      if (playableAudio.currentTime > playerEnd) {
+        playableAudio.currentTime = playerEnd;
+        playableAudio.pause();
+      }
       setCurrentTime(playableAudio.currentTime);
       if (ctx == null) return;
-      console.log(playableAudio.currentTime);
       const xPos = width * (playableAudio.currentTime / playableAudio.duration);
-      console.log(xPos);
-      ctx.lineWidth = 3;
+      ctx.lineWidth = 2;
       ctx?.clearRect(0, 0, width, height);
       ctx?.beginPath();
       ctx?.moveTo(xPos, 0);
@@ -44,12 +58,18 @@ function AudioShow({ audio }: { audio: Blob }) {
       ctx?.stroke();
       ctx?.closePath();
     }, 16);
+    // visualizerRef.current.
 
     return () => clearInterval(currentTimeInterval);
-  }, [playableAudio]);
+  }, [playableAudio, width, setPlayerEnd]);
 
   useEffect(() => {
-    console.log("odpalam visualizer");
+    window.addEventListener("resize", onResize);
+
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
+  useEffect(() => {
     if (overVisualizerCanvasRef.current != null) {
       setCtx(overVisualizerCanvasRef.current.getContext("2d"));
     }
@@ -57,7 +77,7 @@ function AudioShow({ audio }: { audio: Blob }) {
 
   return (
     <>
-      <div className="audio-visualizer">
+      <div ref={visualizerContainerRef} className="audio-visualizer">
         <canvas
           ref={overVisualizerCanvasRef}
           width={width}
@@ -65,6 +85,7 @@ function AudioShow({ audio }: { audio: Blob }) {
           height={height}
         ></canvas>
         <AudioVisualizer
+          key={width}
           ref={visualizerRef}
           blob={audio}
           width={width}
@@ -76,17 +97,31 @@ function AudioShow({ audio }: { audio: Blob }) {
       </div>
       <button
         onClick={() => {
-          playableAudio?.play();
+          if (playableAudio == null) return;
+          if (playableAudio.currentTime >= playerEnd) {
+            playableAudio.currentTime = playerStart;
+          }
+          playableAudio.play();
         }}
       >
         Play
       </button>
       <button
         onClick={() => {
+          if (playableAudio == null) return;
           playableAudio?.pause();
         }}
       >
         Pause
+      </button>
+      <button
+        onClick={() => {
+          if (playableAudio == null) return;
+          playableAudio.currentTime = playerStart;
+          // playableAudio?.set;
+        }}
+      >
+        Reset
       </button>
       {/* {audioUrl && (
         <audio controls>d

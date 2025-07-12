@@ -41,9 +41,7 @@ function SoundPanel({ directoryId }: { directoryId: number | undefined }) {
       ) : (
         categories.map((category) =>
           sounds.filter((sound) => sound.category_id == category.category_id)
-            .length == 0 ? (
-            <></>
-          ) : (
+            .length == 0 ? null : (
             <CategoryNav key={category.category_id} name={category.name}>
               {sounds.map((sound, index) => (
                 <SoundButton sound={sound} key={index}></SoundButton>

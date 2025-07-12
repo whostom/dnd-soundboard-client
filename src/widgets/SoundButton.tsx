@@ -11,8 +11,8 @@ function SoundButton({ sound }: { sound: Sound }) {
     if (buttonRef.current != null) {
       VanillaTilt.init(buttonRef.current, {
         reverse: true,
-        max: 10,
-        scale: 1.025,
+        max: 5,
+        scale: 1.0125,
       });
     }
   }, [buttonRef]);

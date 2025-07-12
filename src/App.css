@@ -105,6 +105,23 @@ hr {
   fill: black;
 }
 
+.category-nav {
+  width: 100%;
+  height: fit-content;
+  padding: 20px 10px;
+  position: relative;
+  border: 2px solid black;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+.category-nav-name {
+  position: absolute;
+  top: -10px;
+  left: 25px;
+  padding: 0px 5px;
+  background-color: red;
+}
+
 .sound-button {
   width: 220px;
   height: 260px;

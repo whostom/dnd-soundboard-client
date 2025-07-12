@@ -6,15 +6,19 @@ import ThreeDotsIcon from "../svg/three-dots-icon";
 import { useEffect, useRef } from "react";
 
 function SoundButton({ sound }: { sound: Sound }) {
-  const buttonRef = useRef<HTMLElement | null>(null);
+  const buttonRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (buttonRef.current != null) {
-      VanillaTilt.init(buttonRef.current, {});
+      VanillaTilt.init(buttonRef.current, {
+        reverse: true,
+        max: 10,
+        scale: 1.025,
+      });
     }
   }, [buttonRef]);
 
   return (
-    <button
+    <div
       ref={buttonRef}
       data-tilt
       className="sound-button"
@@ -33,7 +37,7 @@ function SoundButton({ sound }: { sound: Sound }) {
       <div className="sound-button-play-icon">
         <PlayArrowIcon />
       </div>
-    </button>
+    </div>
   );
 }
 

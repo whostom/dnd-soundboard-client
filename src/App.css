@@ -114,8 +114,12 @@ hr {
   display: flex;
   flex-direction: column;
   cursor: pointer;
+  box-sizing: border-box;
+  background-color: white;
   justify-content: space-between;
   position: relative;
+  transform-style: preserve-3d;
+  transform: perspective(1000px);
 }
 
 .sound-button-menu-button {
@@ -152,6 +156,7 @@ hr {
   align-items: center;
   font-size: 80px;
   border-radius: 15px;
+  transform: translateZ(15px);
   /* align-self: center center; */
 }
 
@@ -165,6 +170,7 @@ hr {
   align-items: center;
   font-size: 80px;
   border-radius: 15px;
+  transform: translateZ(15px);
 }
 
 .sound-button-play-icon .play-arrow-icon {
@@ -172,4 +178,8 @@ hr {
   width: 80%;
   /* aspect-ratio: 1/1; */
   fill: white;
+}
+
+.sound-button-name {
+  text-align: center;
 }

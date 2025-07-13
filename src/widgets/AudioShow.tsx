@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { AudioVisualizer } from "react-audio-visualize";
+import sendFileToServer from "../send-file-to-server";
+import type { ServerResponse } from "../aliases/server-response";
 
-function AudioShow({ audio }: { audio: Blob }) {
+function AudioShow({ audio }: { audio: File }) {
   const visualizerRef = useRef<HTMLCanvasElement>(null);
   const visualizerContainerRef = useRef<HTMLDivElement>(null);
   const overVisualizerCanvasRef = useRef<HTMLCanvasElement>(null);
@@ -49,6 +51,7 @@ function AudioShow({ audio }: { audio: Blob }) {
       }
       setCurrentTime(playableAudio.currentTime);
       if (ctx == null) return;
+      Blob;
       const xPos = width * (playableAudio.currentTime / playableAudio.duration);
       ctx.lineWidth = 2;
       ctx?.clearRect(0, 0, width, height);
@@ -90,8 +93,8 @@ function AudioShow({ audio }: { audio: Blob }) {
           blob={audio}
           width={width}
           height={height}
-          gap={5}
-          barWidth={5}
+          gap={0}
+          barWidth={1}
           currentTime={currentTime}
         />
       </div>
@@ -118,16 +121,21 @@ function AudioShow({ audio }: { audio: Blob }) {
         onClick={() => {
           if (playableAudio == null) return;
           playableAudio.currentTime = playerStart;
-          // playableAudio?.set;
         }}
       >
         Reset
       </button>
-      {/* {audioUrl && (
-        <audio controls>d
-          <source src={audioUrl} type={audio.type} />
-        </audio>
-      )} */}
+      <button
+        onClick={() => {
+          sendFileToServer<ServerResponse<null>>("upload-sound", audio).then(
+            (response) => {
+              console.log(response);
+            },
+          );
+        }}
+      >
+        Upload
+      </button>
     </>
   );
 }

@@ -3,7 +3,7 @@ import FileButton from "../widgets/FileButton";
 import AudioShow from "../widgets/AudioShow";
 
 function SoundDialog({ onCloseDialog }: { onCloseDialog: () => void }) {
-  const [file, setFile] = useState<Blob | null>(null);
+  const [file, setFile] = useState<File | null>(null);
   return (
     <>
       <div

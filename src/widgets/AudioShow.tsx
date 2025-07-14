@@ -13,18 +13,21 @@ function AudioShow({ audio }: { audio: File }) {
   );
   const [currentTime, setCurrentTime] = useState<number>(0);
   const [ctx, setCtx] = useState<CanvasRenderingContext2D | null>(null);
-  const [playerBox, setPlayerBox] = useState<{
-    start: number;
-    end: number;
-  }>({ start: 0, end: -1 });
-  const playerBoxRef = useRef<{ start: number; end: number }>(playerBox);
+  const playerBox = useRef<{ start: number; end: number }>({
+    start: 0,
+    end: -1,
+  });
   // const [playerEnd, setPlayerEnd] = useState<number>(-1);
   const [width, setWidth] = useState<number>(1000);
   const [height, setHeight] = useState<number>(100);
 
-  useEffect(() => {
-    playerBoxRef.current = playerBox;
-  }, [playerBox]);
+  const mouseOverStart = useRef<boolean>(false);
+  const mouseOverEnd = useRef<boolean>(false);
+
+  const movingStart = useRef<boolean>(false);
+  const movingEnd = useRef<boolean>(false);
+  const positionBefore = useRef<number>(0);
+  const positionNow = useRef<number>(0);
 
   function onResize() {
     if (visualizerContainerRef.current == null) return;
@@ -32,9 +35,24 @@ function AudioShow({ audio }: { audio: File }) {
     setHeight(visualizerContainerRef.current.offsetHeight);
   }
 
-  function onMouseDown(event: MouseEvent) {}
+  function onMouseDown(event: MouseEvent) {
+    const mousePos = { x: event.clientX, y: event.clientY };
+    if (mouseOverStart.current) {
+      movingStart.current = true;
+      positionBefore.current = mousePos.x;
+    } else if (mouseOverEnd.current) {
+      movingEnd.current = true;
+      positionBefore.current = mousePos.x;
+    }
+  }
 
-  function onMouseUp(event: MouseEvent) {}
+  function onMouseUp(event: MouseEvent) {
+    if (movingStart.current) {
+      movingStart.current = false;
+    } else if (movingEnd.current) {
+      movingEnd.current = false;
+    }
+  }
 
   function onMouseMove(event: MouseEvent) {
     if (visualizerRef.current == null) return;
@@ -47,11 +65,25 @@ function AudioShow({ audio }: { audio: File }) {
 
     console.log(canvasRect);
     console.log(mousePos);
-    console.log(playerBoxRef.current);
+    console.log(playerBox.current);
+    if (movingStart.current) {
+      console.log("dzialamy");
+      positionNow.current = mousePos.x;
+      playerBox.current.start =
+        (positionNow.current - positionBefore.current) / width +
+        playerBox.current.start;
+      // setPlayerBox({
+      //   start:
+      //     (positionNow.current - positionBefore.current) / width +
+      //     playerBox.start,
+      //   end: playerBox.end,
+      // });
+      positionBefore.current = positionNow.current;
+    } else if (movingEnd.current) {
+    }
 
-    const startPosX =
-      canvasRect.width * (playerBoxRef.current.start / duration);
-    const endPosX = canvasRect.width * (playerBoxRef.current.end / duration);
+    const startPosX = canvasRect.width * (playerBox.current.start / duration);
+    const endPosX = canvasRect.width * (playerBox.current.end / duration);
 
     const body = document.querySelector("body");
     if (
@@ -63,6 +95,8 @@ function AudioShow({ audio }: { audio: File }) {
       if (body != null) {
         body.style.cursor = "col-resize";
       }
+      mouseOverStart.current = true;
+      mouseOverEnd.current = false;
       console.log("masz myszke tak ze mogbys posuwac start");
     } else if (
       mousePos.x > endPosX + canvasRect.left - threshold &&
@@ -73,10 +107,14 @@ function AudioShow({ audio }: { audio: File }) {
       if (body != null) {
         body.style.cursor = "col-resize";
       }
+      mouseOverStart.current = false;
+      mouseOverEnd.current = true;
       console.log("masz myszke tak ze mogbys posuwac end");
     } else {
       if (body != null) {
         body.style.cursor = "";
+        mouseOverStart.current = false;
+        mouseOverEnd.current = false;
       }
     }
 
@@ -101,8 +139,8 @@ function AudioShow({ audio }: { audio: File }) {
     if (visualizerContainerRef.current == null) return;
 
     const currentTimeInterval = setInterval(() => {
-      if (playableAudio.currentTime > playerBox.end) {
-        playableAudio.currentTime = playerBox.end;
+      if (playableAudio.currentTime > playerBox.current.end) {
+        playableAudio.currentTime = playerBox.current.end;
         playableAudio.pause();
       }
       let xPos = 0;
@@ -120,7 +158,7 @@ function AudioShow({ audio }: { audio: File }) {
       ctx.closePath();
 
       // Start position
-      xPos = width * (playerBox.start / playableAudio.duration);
+      xPos = width * (playerBox.current.start / playableAudio.duration);
       ctx.beginPath();
       ctx.fillStyle = "rgba(0,0,0,0.5";
       ctx.rect(0, 0, xPos, height);
@@ -133,7 +171,7 @@ function AudioShow({ audio }: { audio: File }) {
       ctx.closePath();
 
       // End position
-      xPos = width * (playerBox.end / playableAudio.duration);
+      xPos = width * (playerBox.current.end / playableAudio.duration);
       ctx.beginPath();
       ctx.fillStyle = "rgba(0,0,0,0.5";
       ctx.rect(xPos, 0, width, height);
@@ -152,14 +190,16 @@ function AudioShow({ audio }: { audio: File }) {
     playableAudio,
     visualizerContainerRef.current,
     width,
-    playerBox.start,
-    playerBox.end,
+    playerBox.current.end,
+    playerBox.current.end,
   ]);
 
   useEffect(() => {
     if (playableAudio == null) return;
     console.log(playableAudio.duration);
-    setPlayerBox({ start: 0, end: playableAudio.duration });
+    playerBox.current.start = 0;
+    playerBox.current.end = playableAudio.duration;
+    // setPlayerBox({ start: 0, end: playableAudio.duration });
     // setPlayerEnd(playableAudio.duration);
   }, [playableAudio?.duration]);
 
@@ -206,8 +246,8 @@ function AudioShow({ audio }: { audio: File }) {
       <button
         onClick={() => {
           if (playableAudio == null) return;
-          if (playableAudio.currentTime >= playerBox.end) {
-            playableAudio.currentTime = playerBox.start;
+          if (playableAudio.currentTime >= playerBox.current.end) {
+            playableAudio.currentTime = playerBox.current.end;
           }
           playableAudio.play();
         }}
@@ -225,7 +265,10 @@ function AudioShow({ audio }: { audio: File }) {
       <button
         onClick={() => {
           if (playableAudio == null) return;
-          setPlayerBox({ start: 2, end: 3 });
+          playerBox.current.start = 2;
+          playerBox.current.end = 3;
+          // setPlayerBox({ start: 2, end: 3 });
+          // playerBox;
           // setPlayerStart(2);
           // setPlayerEnd(3);
           playableAudio.currentTime = 2;

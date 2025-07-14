@@ -1,13 +1,20 @@
-import type { ReactNode } from "react";
-
 function DirectoryButton({
   children,
   onClick,
+  chosen = false,
 }: {
-  children: ReactNode;
-  onClick: (open: boolean) => void;
+  children: React.ReactNode;
+  onClick: () => void;
+  chosen?: boolean;
 }) {
-  return <button>{children}</button>;
+  return (
+    <button
+      onClick={onClick}
+      className={chosen ? "chosen" : undefined}
+    >
+      {children}
+    </button>
+  );
 }
 
 export default DirectoryButton;

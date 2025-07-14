@@ -3,34 +3,53 @@
     grid-template-areas:
       "search-panel"
       "sound-panel";
-    background-color: blue;
+    background-color: #131313;
   }
 
   #directories-panel {
+    z-index: 100;
+    /* to ensure that directories panel always appears on top */
     position: fixed;
     width: min(100vw, 300px);
-    left: calc(-1 * min(100vw, 300px));
-    transition: 0.5s;
+    left: calc(-1 * min(100vw, 310px));
+    transition: 0.2s;
+    border-radius: 0 16px 16px 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    display: flex;
+    align-items: center;
+
+
+    /* background: rgba(255, 255, 255, 0.2);
+    border-radius:  0 16px 16px 0;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.22); */
   }
 
   #directories-panel.open {
     left: 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
   }
 
   #directory-toggle-button {
+    z-index: 101 !important;
     width: 50px;
     height: 50px;
+    margin-left: 0.8em;
+    margin-top: 8px;
     position: fixed;
     /* mask-image: url(assets/menu.svg); */
-    top: 0;
-    left: 0;
-    z-index: 100;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     /* mask-size: 90%; */
     /* mask-position: center center; */
     background-color: transparent;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
     border: none;
     /* background-color: red; */
   }
@@ -40,12 +59,31 @@
   }
 
   #directory-toggle-button .icon {
-    height: 90%;
-    width: 90%;
-    fill: red;
+    height: 80%;
+    width: 80%;
+    margin: 0;
+    padding: 0;
+    fill: rgb(229, 229, 229);
+  }
+
+  .header-directories-text {
+    display: flex;
+    align-items: center;
+    height: 50px;
+    margin-bottom: 0.5em;
+    padding-left: 10px;
   }
 
   /* #directory-toggle-button.open { */
   /* mask-image: url(assets/arrow_back.svg); */
   /* } */
+
+  #search-panel.darken::after {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    content: '';
+    background: black;
+    opacity: 0.55;
+  }
 }

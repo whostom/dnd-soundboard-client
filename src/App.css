@@ -7,7 +7,8 @@ main {
 
 #directories-panel {
   grid-area: directories-panel;
-  background-color: yellow;
+  background-color: #131313;
+  color: #e2e2e2;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -18,6 +19,25 @@ main {
   padding: 10px;
   padding-left: 50px;
   font-size: 2em;
+}
+
+#directories-panel>button {
+  width: 85%;
+  padding: 1em;
+  border: 10px solid #1e2e4f;
+  border-radius: 35px;
+  color: #e2e2e2;
+  background: #262626;
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+#directories-panel>button.chosen{
+  background: #d4d4d4;
+  color: #131313;
 }
 
 hr {
@@ -59,17 +79,15 @@ hr {
   inset: 0;
 }
 
-.directories-loading {
-}
+.directories-loading {}
 
-.directories-text {
-}
+.directories-text {}
 
 #search-panel {
   grid-area: search-panel;
   display: flex;
+  justify-content: center;
   padding: 0.5em;
-  gap: 0.5em;
 }
 
 #sound-panel {
@@ -81,7 +99,11 @@ hr {
 
 .search-bar {
   border-radius: 5em;
-  background-color: rgba(128, 128, 128, 0.75);
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.03);
   width: max-content;
   display: flex;
   margin-left: 50px;
@@ -112,26 +134,28 @@ hr {
 .search-bar-submit-button .search-icon {
   width: 80%;
   height: 80%;
-  fill: black;
+  fill: rgb(229, 229, 229);
 }
 
 .new-sound-button {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background-color: rgba(128, 128, 128, 0.75);
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
   border: none;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  position: fixed;
+  top: 1;
+  left: calc(100vw - 50px - 1em);
   cursor: pointer;
 }
 
 .new-sound-button .add-new-sound-icon {
   height: 80%;
   width: 80%;
-  fill: black;
+  fill: rgb(229, 229, 229);
 }
 
 .category-nav {
@@ -143,6 +167,7 @@ hr {
   box-sizing: border-box;
   border-radius: 5px;
 }
+
 .category-nav-name {
   position: absolute;
   top: -10px;

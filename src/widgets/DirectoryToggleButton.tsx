@@ -3,17 +3,16 @@ import ArrowBackIcon from "../svg/arrow_back-icon";
 import MenuIcon from "../svg/menu-icon";
 
 function DirectoryToggleButton({
-  onClick,
+  open,
+  setOpen,
 }: {
-  onClick: (open: boolean) => void;
+  open: boolean;
+  setOpen: (value: boolean) => void;
 }) {
-  const [open, setOpen] = useState<boolean>(false);
   return (
     <button
       onClick={() => {
-        console.log("siema");
         setOpen(!open);
-        onClick(!open);
       }}
       className={open ? "open" : undefined}
       id="directory-toggle-button"

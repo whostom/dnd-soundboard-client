@@ -4,6 +4,19 @@ import { useEffect, useState } from "react";
 import fetchToServer from "../fetch-to-server";
 import DirectoryButton from "../widgets/DirectoryButton";
 
+function applyPanelDarken(open: boolean) {
+  const soundPanel = document.querySelector("#sound-panel");
+  const searchPanel = document.querySelector("#search-panel");
+
+  if (open) {
+    soundPanel?.classList.add("darken");
+    searchPanel?.classList.add("darken");
+  } else {
+    soundPanel?.classList.remove("darken");
+    searchPanel?.classList.remove("darken");
+  }
+}
+
 function DirectoriesPanel({
   onDirectoryChange,
 }: {
@@ -16,6 +29,7 @@ function DirectoriesPanel({
   const [allDirectories, setAllDirectories] = useState<
     Array<{ folder_id: number; folder_name: string }> | undefined
   >(undefined);
+  const [selectedFolderId, setSelectedFolderId] = useState<number | null>(null);
 
   useEffect(() => {
     fetchToServer<{
@@ -23,33 +37,42 @@ function DirectoriesPanel({
       result: Array<{ folder_id: number; folder_name: string }>;
     }>("get-all-folders", null).then((response) => {
       setAllDirectories(response.result);
-      console.log(response.result);
     });
   }, []);
+
   const isMobile = useMediaQuery({
     query: "screen and (max-aspect-ratio: 1/1)",
   });
 
+  const handleSetOpen = (newOpenState: boolean) => {
+    setOpen(newOpenState);
+    applyPanelDarken(newOpenState);
+  };
+
   return (
     <>
       {isMobile ? (
-        <DirectoryToggleButton
-          onClick={(open: boolean) => {
-            setOpen(open);
-          }}
-        />
-      ) : (
-        <></>
-      )}
+        <DirectoryToggleButton open={open} setOpen={handleSetOpen} />
+      ) : null}
+
       <div id="directories-panel" className={open ? "open" : undefined}>
-        <span className="header-directories-text">Lista folderów</span>
-        <DirectoryButton onClick={() => {}}>
-          Pokaż wszystkie dźwięki
+        <span className="header-directories-text">Foldery</span>
+
+        <DirectoryButton
+          onClick={() => {
+            setSelectedFolderId(null);
+            handleSetOpen(false);
+          }}
+          chosen={selectedFolderId === null}
+        >
+          Wszystkie dźwięki
         </DirectoryButton>
+
         <hr />
-        {allDirectories == undefined ? (
+
+        {allDirectories === undefined ? (
           <span className="directories-loading">loading...</span>
-        ) : allDirectories.length == 0 ? (
+        ) : allDirectories.length === 0 ? (
           <span className="directories-text">
             Nie ma żadnych istniejących folderów :(
           </span>
@@ -59,7 +82,10 @@ function DirectoriesPanel({
               key={index}
               onClick={() => {
                 onDirectoryChange(directory);
+                setSelectedFolderId(directory.folder_id);
+                handleSetOpen(false);
               }}
+              chosen={selectedFolderId === directory.folder_id}
             >
               {directory.folder_name}
             </DirectoryButton>

@@ -61,18 +61,36 @@ function AudioShow({ audio }: { audio: File }) {
     const mousePos = { x: event.clientX, y: event.clientY };
     const duration = playableAudio.current.duration;
 
-    console.log(canvasRect);
-    console.log(mousePos);
-    console.log(playerBox.current);
+    const safeDistance = duration * (10 / canvasRect.width);
     if (movingStart.current) {
-      console.log("dzialamy");
       positionNow.current = mousePos.x;
       const distance = positionNow.current - positionBefore.current;
       playerBox.current.start += duration * (distance / canvasRect.width);
 
+      if (playerBox.current.start < 0) {
+        playerBox.current.start = 0;
+      }
+
+      if (playerBox.current.start > playerBox.current.end - safeDistance) {
+        playerBox.current.start = playerBox.current.end - safeDistance;
+      }
+
       positionBefore.current = positionNow.current;
     }
     if (movingEnd.current) {
+      positionNow.current = mousePos.x;
+      const distance = positionNow.current - positionBefore.current;
+      playerBox.current.end += duration * (distance / canvasRect.width);
+
+      if (playerBox.current.end > playableAudio.current.duration) {
+        playerBox.current.end = 0;
+      }
+
+      if (playerBox.current.end < playerBox.current.start + safeDistance) {
+        playerBox.current.end = playerBox.current.start + safeDistance;
+      }
+
+      positionBefore.current = positionNow.current;
     }
 
     const startPosX = canvasRect.width * (playerBox.current.start / duration);
@@ -90,7 +108,6 @@ function AudioShow({ audio }: { audio: File }) {
       }
       mouseOverStart.current = true;
       mouseOverEnd.current = false;
-      console.log("masz myszke tak ze mogbys posuwac start");
     } else if (
       mousePos.x > endPosX + canvasRect.left - threshold &&
       mousePos.x < endPosX + canvasRect.left + threshold &&
@@ -102,7 +119,6 @@ function AudioShow({ audio }: { audio: File }) {
       }
       mouseOverStart.current = false;
       mouseOverEnd.current = true;
-      console.log("masz myszke tak ze mogbys posuwac end");
     } else {
       if (body != null) {
         body.style.cursor = "";
@@ -180,17 +196,27 @@ function AudioShow({ audio }: { audio: File }) {
       ctx.current.stroke();
       ctx.current.closePath();
     }, 16);
-    // visualizerRef.current.
 
     return () => clearInterval(currentTimeInterval);
   }, [playableAudio, visualizerContainerRef, width, playerBox]);
 
   useEffect(() => {
     if (playableAudio.current == null) return;
-    console.log(playableAudio.current.duration);
-    playerBox.current.start = 0;
-    playerBox.current.end = playableAudio.current.duration;
-  }, [playableAudio.current?.duration]);
+    const handleDuration = () => {
+      if (playableAudio.current == null) return;
+      playerBox.current.start = 0;
+      playerBox.current.end = playableAudio.current.duration;
+    };
+
+    playableAudio.current.addEventListener("loadedmetadata", handleDuration);
+
+    return () => {
+      playableAudio.current?.removeEventListener(
+        "loadedmetadata",
+        handleDuration,
+      );
+    };
+  }, [playableAudio]);
 
   useEffect(() => {
     window.addEventListener("resize", onResize);

@@ -1,3 +1,10 @@
+:root{
+  --color-background: #884ca7;
+  --color-border: #0f2d34;
+  --color-sound-button: #115b90;
+  --color-sound-icon: #42ecf1;
+  --color-detail: #f5f0a1
+}
 main {
   width: 100%;
   height: 100%;
@@ -7,11 +14,12 @@ main {
 
 #directories-panel {
   grid-area: directories-panel;
-  background-color: #131313;
+  background-color: var(--color-background);
   color: #e2e2e2;
   height: 100vh;
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .header-directories-text {
@@ -37,7 +45,7 @@ main {
 
 #directories-panel>button.chosen{
   background: #d4d4d4;
-  color: #131313;
+  color: var(--color-background);
 }
 
 hr {
@@ -164,30 +172,36 @@ hr {
   height: fit-content;
   padding: 20px 10px;
   position: relative;
-  border: 2px solid black;
+  border: 3px solid var(--color-border);
   box-sizing: border-box;
-  border-radius: 5px;
+  border-radius: 15px;
+  background-image: linear-gradient(90deg,var(--color-background), var(--color-sound-icon));
 }
 
 .category-nav-name {
   position: absolute;
-  top: -10px;
+  top: -13px;
   left: 25px;
-  padding: 0px 5px;
-  background-color: red;
+  padding: 1px 6px;
+  font-size: 115%;
+  font-weight: bold;
+  border: 3px solid var(--color-border);
+  border-radius: 5px;
+  color: var(--color-detail);
+  background: var(--color-sound-button);
 }
 
 .sound-button {
   width: 220px;
   height: 260px;
-  border: none;
+  border: 2px solid var(--color-border);
   border-radius: 20px;
   padding: 30px;
   display: flex;
   flex-direction: column;
   cursor: pointer;
   box-sizing: border-box;
-  background-color: white;
+  background-color: var(--color-sound-button);
   justify-content: space-between;
   position: relative;
   transform-style: preserve-3d;
@@ -220,7 +234,7 @@ hr {
 
 .sound-button-icon {
   width: 100%;
-  background-color: red;
+  background-color: var(--color-sound-icon);
   height: 50%;
   text-align: center;
   display: flex;
@@ -234,7 +248,7 @@ hr {
 
 .sound-button-play-icon {
   width: 100%;
-  background-color: red;
+  background-color: var(--color-sound-icon);
   height: 30%;
   text-align: center;
   display: flex;

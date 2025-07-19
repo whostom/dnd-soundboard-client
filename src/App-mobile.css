@@ -3,15 +3,15 @@
     grid-template-areas:
       "search-panel"
       "sound-panel";
-    background-color: #131313;
+    background-color: var(--color-background);
   }
 
   #directories-panel {
     z-index: 100;
     /* to ensure that directories panel always appears on top */
     position: fixed;
-    width: min(100vw, 300px);
-    left: calc(-1 * min(100vw, 310px));
+    width: min(100vw, 350px);
+    left: calc(-1 * min(100vw, 360px));
     transition: 0.2s;
     border-radius: 0 16px 16px 0;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);

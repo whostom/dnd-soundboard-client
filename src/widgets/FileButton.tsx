@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import UploadFileIcon from "../svg/upload-file-icon";
 
 function FileButton({
   onFileChoosen,
@@ -8,8 +9,13 @@ function FileButton({
   const inputFileRef = useRef<HTMLInputElement>(null);
   return (
     <>
-      <button></button>
+      <label htmlFor="sound-dialog-file-button" className="file-button">
+        <UploadFileIcon />
+        <span className="file-button-text">Kliknij, aby dodać dźwięk</span>
+      </label>
       <input
+        id="sound-dialog-file-button"
+        className="file-button-input"
         ref={inputFileRef}
         onChange={() => {
           if (
@@ -21,7 +27,7 @@ function FileButton({
             }
           }
         }}
-        accept="audio/mpeg,audio/ogg,audio/wav"
+        accept="audio/mpeg,audio/wav"
         type="file"
       />
     </>

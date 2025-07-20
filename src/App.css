@@ -217,7 +217,6 @@ hr {
   border: 1px solid rgba(255, 255, 255, 0.03);
   width: max-content;
   display: flex;
-  margin-left: 50px;
   align-items: center;
 }
 
@@ -260,7 +259,7 @@ hr {
   border: none;
   position: fixed;
   top: 1;
-  left: calc(100vw - 50px - 1em);
+  left: calc(100vw - 55px - .5em);
   cursor: pointer;
 }
 

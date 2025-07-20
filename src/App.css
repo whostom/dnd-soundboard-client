@@ -229,6 +229,7 @@ hr {
   border: none;
   outline: none;
   background: transparent;
+  color: var(--color-detail);
 }
 
 .search-bar-submit-button {
@@ -333,6 +334,7 @@ hr {
 .sound-button-menu-button .three-dots-icon {
   width: 100%;
   height: 100%;
+  fill: var(--color-detail);
 }
 
 .sound-button-icon {
@@ -371,4 +373,6 @@ hr {
 
 .sound-button-name {
   text-align: center;
+  color: var(--color-detail);
+  font-weight: bold;
 }

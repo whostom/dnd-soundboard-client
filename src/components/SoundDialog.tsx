@@ -22,7 +22,7 @@ function SoundDialog({ onCloseDialog }: { onCloseDialog: () => void }) {
             setFile(file);
           }}
         ></FileButton>
-        {/* {file == null ? null : <AudioShow audio={file} />} */}
+        {file == null ? null : <AudioShow audio={file} />}
       </div>
     </>
   );

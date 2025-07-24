@@ -162,6 +162,12 @@ hr {
 
 .file-button-text {
 }
+.solid{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 15px;
+}
 
 .file-button-input {
   display: none;
@@ -279,7 +285,10 @@ hr {
   border: 3px solid var(--color-border);
   box-sizing: border-box;
   border-radius: 15px;
-  background-color: var(--color-background)
+  background-color: var(--color-background);
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
 }
 
 .category-nav-name {

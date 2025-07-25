@@ -39,7 +39,7 @@ function SoundPanel({
             .length == 0 ? null : (
             <CategoryNav key={category.category_id} name={category.name}>
               {sounds.map((sound, index) => (
-                <SoundButton sound={sound} key={index}></SoundButton>
+                sound.category_id == category.category_id ? <SoundButton sound={sound} key={index}></SoundButton> : null
               ))}
             </CategoryNav>
           ),

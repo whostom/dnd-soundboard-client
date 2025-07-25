@@ -33,7 +33,7 @@ function SoundButton({ sound }: { sound: Sound }) {
       <button className="sound-button-menu-button">
         <ThreeDotsIcon />
       </button>
-      <div className="sound-button-icon emoji">{sound.icon}</div>
+      <div className="sound-button-icon emoji">{sound.name == "invisible" ? <img src='/src/twardywaz.jpg' className='solid'/> : sound.icon}</div>
       {/* <div className="sound-button-icon">
         <Emoji
           unified={sound.icon.codePointAt(0)!.toString(16)}

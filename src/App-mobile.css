@@ -3,7 +3,7 @@
     grid-template-areas:
       "search-panel"
       "sound-panel";
-    background-color: var(--color-background);
+    background-color: var(--color-sound-button);
   }
 
   #directories-panel {
@@ -63,7 +63,7 @@
     width: 80%;
     margin: 0;
     padding: 0;
-    fill: rgb(229, 229, 229);
+    fill: var(--color-detail);
   }
 
   .header-directories-text {
@@ -86,4 +86,16 @@
     background: black;
     opacity: 0.55;
   }
+  .search-bar {
+    width: 100%;
+    max-width: 280px;
+    min-width: 180px;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+  .search-bar-text-input {
+  width: 80%;
+  max-width: 80%;
+  box-sizing: border-box;
+}
 }

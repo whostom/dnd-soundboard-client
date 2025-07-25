@@ -3,7 +3,7 @@
   --color-border: #0f2d34;
   --color-sound-button: #115b90;
   --color-sound-icon: #42ecf1;
-  --color-detail: #f5f0a1;
+  --color-detail: #fffcd9;
 }
 main {
   width: 100%;
@@ -15,7 +15,7 @@ main {
 #directories-panel {
   grid-area: directories-panel;
   background-color: var(--color-background);
-  color: #e2e2e2;
+  color: var(--color-detail);
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -44,8 +44,9 @@ main {
 }
 
 #directories-panel > button.chosen {
-  background: #d4d4d4;
+  background: var(--color-detail);
   color: var(--color-background);
+  font-weight: bold;
 }
 
 hr {
@@ -162,6 +163,12 @@ hr {
 
 .file-button-text {
 }
+.solid {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 15px;
+}
 
 .file-button-input {
   display: none;
@@ -247,6 +254,7 @@ hr {
   padding: 20px;
   display: flex;
   gap: 20px;
+  flex-direction: column;
 }
 
 .search-bar {
@@ -258,7 +266,6 @@ hr {
   border: 1px solid rgba(255, 255, 255, 0.03);
   width: max-content;
   display: flex;
-  margin-left: 50px;
   align-items: center;
 }
 
@@ -271,6 +278,7 @@ hr {
   border: none;
   outline: none;
   background: transparent;
+  color: var(--color-detail);
 }
 
 .search-bar-submit-button {
@@ -287,7 +295,7 @@ hr {
 .search-bar-submit-button .search-icon {
   width: 80%;
   height: 80%;
-  fill: rgb(229, 229, 229);
+  fill: var(--color-detail);
 }
 
 .new-sound-button {
@@ -301,14 +309,15 @@ hr {
   border: none;
   position: fixed;
   top: 1;
-  left: calc(100vw - 50px - 1em);
+  left: calc(100vw - 55px - 0.5em);
   cursor: pointer;
 }
 
 .new-sound-button .add-new-sound-icon {
   height: 80%;
   width: 80%;
-  fill: rgb(229, 229, 229);
+  fill: var(--color-detail);
+  margin-top: 5px;
 }
 
 .category-nav {
@@ -319,11 +328,10 @@ hr {
   border: 3px solid var(--color-border);
   box-sizing: border-box;
   border-radius: 15px;
-  background-image: linear-gradient(
-    90deg,
-    var(--color-background),
-    var(--color-sound-icon)
-  );
+  background-color: var(--color-background);
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
 }
 
 .category-nav-name {
@@ -378,6 +386,7 @@ hr {
 .sound-button-menu-button .three-dots-icon {
   width: 100%;
   height: 100%;
+  fill: var(--color-detail);
 }
 
 .sound-button-icon {
@@ -411,9 +420,11 @@ hr {
   height: 80%;
   width: 80%;
   /* aspect-ratio: 1/1; */
-  fill: white;
+  fill: var(--color-detail);
 }
 
 .sound-button-name {
   text-align: center;
+  color: var(--color-detail);
+  font-weight: bold;
 }

@@ -2,16 +2,19 @@ import { useEffect, useState } from "react";
 import fetchToServer from "../fetch-to-server";
 import SoundButton from "../widgets/SoundButton";
 import type { Sound } from "../aliases/sound";
-import type { SoundCategory } from "../aliases/sound-category";
+// import type { SoundCategory } from "../aliases/sound-category";
 import type { ServerResponse } from "../aliases/server-response";
 import CategoryNav from "../widgets/CategoryNav";
+import type { SoundCategory } from "../aliases/sound-category";
 
-function SoundPanel({ directoryId }: { directoryId: number | undefined }) {
+function SoundPanel({
+  categories,
+  directoryId,
+}: {
+  categories: Array<SoundCategory> | undefined;
+  directoryId: number | undefined;
+}) {
   const [sounds, setSounds] = useState<Array<Sound> | undefined>(undefined);
-
-  const [categories, setCategories] = useState<
-    Array<SoundCategory> | undefined
-  >();
 
   useEffect(() => {
     console.log("zmieniam directory");
@@ -23,14 +26,6 @@ function SoundPanel({ directoryId }: { directoryId: number | undefined }) {
       setSounds(response.result);
     });
   }, [directoryId]);
-  useEffect(() => {
-    fetchToServer<ServerResponse<Array<SoundCategory>>>(
-      "get-all-categories",
-    ).then((response) => {
-      console.log(response);
-      setCategories(response.result);
-    });
-  }, []);
 
   return (
     <div id="sound-panel">
@@ -39,7 +34,7 @@ function SoundPanel({ directoryId }: { directoryId: number | undefined }) {
       ) : sounds.length == 0 ? (
         <span>Brak dźwięków do puszczania :(</span>
       ) : (
-        categories.map((category) =>
+        categories?.map((category) =>
           sounds.filter((sound) => sound.category_id == category.category_id)
             .length == 0 ? null : (
             <CategoryNav key={category.category_id} name={category.name}>

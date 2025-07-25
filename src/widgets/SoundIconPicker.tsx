@@ -2,7 +2,11 @@ import EmojiPicker, { Categories, EmojiStyle, Theme } from "emoji-picker-react";
 import { useState } from "react";
 import ChooseEmojiIcon from "../svg/choose-emoji-icon";
 
-function SoundIconPicker() {
+function SoundIconPicker({
+  onEmojiChoosen,
+}: {
+  onEmojiChoosen: (emoji: string) => void;
+}) {
   const [emoji, setEmoji] = useState<string | null>(null);
   const [pickerOpen, setPickerOpen] = useState<boolean>(false);
   return (
@@ -34,8 +38,10 @@ function SoundIconPicker() {
       <EmojiPicker
         onEmojiClick={(emojiData) => {
           if (emojiData.emoji == "block") {
+            onEmojiChoosen("");
             setEmoji(null);
           } else {
+            onEmojiChoosen(emojiData.emoji);
             setEmoji(emojiData.emoji);
           }
           setPickerOpen(false);

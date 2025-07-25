@@ -4,8 +4,11 @@ import "./App-desktop.css";
 import DirectoriesPanel from "./components/DirectoriesPanel";
 import SearchPanel from "./components/SearchPanel";
 import SoundPanel from "./components/SoundPanel";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SoundDialog from "./components/SoundDialog";
+import type { SoundCategory } from "./aliases/sound-category";
+import type { ServerResponse } from "./aliases/server-response";
+import fetchToServer from "./fetch-to-server";
 
 function App() {
   const [directory, setDirectory] = useState<
@@ -16,7 +19,19 @@ function App() {
     | undefined
   >(undefined);
 
+  const [categories, setCategories] = useState<
+    Array<SoundCategory> | undefined
+  >();
   const [soundDialogOpen, setSoundDialogOpen] = useState<boolean>(false);
+
+  useEffect(() => {
+    fetchToServer<ServerResponse<Array<SoundCategory>>>(
+      "get-all-categories",
+    ).then((response) => {
+      console.log(response);
+      setCategories(response.result);
+    });
+  }, []);
 
   return (
     <main>
@@ -35,6 +50,7 @@ function App() {
       />
       {soundDialogOpen ? (
         <SoundDialog
+          categories={categories}
           onCloseDialog={() => {
             setSoundDialogOpen(false);
           }}
@@ -42,7 +58,7 @@ function App() {
       ) : (
         <></>
       )}
-      <SoundPanel directoryId={directory?.folder_id} />
+      <SoundPanel categories={categories} directoryId={directory?.folder_id} />
     </main>
   );
 }

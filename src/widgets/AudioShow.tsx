@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { AudioVisualizer } from "react-audio-visualize";
+// import { AudioVisualizer } from "react-audio-visualize";
 import sendFileToServer from "../send-file-to-server";
 import type { ServerResponse } from "../aliases/server-response";
+import WavesurferPlayer from "@wavesurfer/react";
 
 function AudioShow({ audio }: { audio: File }) {
   const visualizerRef = useRef<HTMLCanvasElement>(null);
@@ -18,6 +19,7 @@ function AudioShow({ audio }: { audio: File }) {
 
   const [width, setWidth] = useState<number>(1000);
   const [height, setHeight] = useState<number>(100);
+  const [audioUrl, setAudioUrl] = useState<string>("");
 
   const mouseOverStart = useRef<boolean>(false);
   const mouseOverEnd = useRef<boolean>(false);
@@ -131,6 +133,7 @@ function AudioShow({ audio }: { audio: File }) {
   useEffect(() => {
     const url = URL.createObjectURL(audio);
     playableAudio.current = new Audio(url);
+    setAudioUrl(url);
 
     return () => URL.revokeObjectURL(url);
   }, [audio]);
@@ -247,7 +250,8 @@ function AudioShow({ audio }: { audio: File }) {
           className="over-visualizer-canvas"
           height={height}
         ></canvas>
-        <AudioVisualizer
+
+        {/* <AudioVisualizer
           key={width + height}
           ref={visualizerRef}
           blob={audio}
@@ -256,7 +260,8 @@ function AudioShow({ audio }: { audio: File }) {
           gap={0}
           barWidth={1}
           currentTime={currentTime.current}
-        />
+        /> */}
+        <WavesurferPlayer url={audioUrl} height={height} width={width} />
       </div>
       <button
         onClick={() => {

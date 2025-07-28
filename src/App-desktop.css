@@ -4,7 +4,7 @@
       "directories-panel search-panel"
       "directories-panel sound-panel";
     grid-template-columns: min(50vw, 300px) 1fr;
-    background-color: var(--color-sound-button);
+    background-color: var(--color-background);
   }
 
   #directories-panel {

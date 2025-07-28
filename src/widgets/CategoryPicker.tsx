@@ -3,8 +3,10 @@ import type { SoundCategory } from "../aliases/sound-category";
 import ArrowDownIcon from "../svg/arrow-down-icon";
 
 function CategoryPicker({
+  onCategoryChoosen,
   categories,
 }: {
+  onCategoryChoosen: (category: SoundCategory) => void;
   categories: Array<SoundCategory> | undefined;
 }) {
   const [choosenCategory, setChoosenCategory] = useState<SoundCategory | null>(

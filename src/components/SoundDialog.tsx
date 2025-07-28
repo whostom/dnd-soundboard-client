@@ -38,7 +38,12 @@ function SoundDialog({
             setName(name);
           }}
         />
-        <CategoryPicker categories={categories} />
+        <CategoryPicker
+          onCategoryChoosen={(category) => {
+            setCategory(category);
+          }}
+          categories={categories}
+        />
         <FileButton
           onFileChoosen={(file) => {
             setFile(file);

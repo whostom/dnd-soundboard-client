@@ -18,10 +18,7 @@ function CategoryPicker({
 
   useEffect(() => {
     const detectClickingOutside = (event: Event) => {
-      console.log("siema");
-      console.log(categoryPickerRef.current);
       if (categoryPickerRef.current == null) return;
-      console.log(event.composedPath().includes(categoryPickerRef.current));
       const withinBoundaries = event
         .composedPath()
         .includes(categoryPickerRef.current);

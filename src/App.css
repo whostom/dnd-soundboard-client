@@ -17,7 +17,7 @@ main {
   grid-area: directories-panel;
   background-color: var(--color-directory);
   color: var(--color-detail);
-  height: 100%;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -333,6 +333,8 @@ hr {
   display: flex;
   gap: 20px;
   flex-wrap: wrap;
+  background-color: rgba(209, 107, 204, 0.521);
+  backdrop-filter: blur(10px);
 }
 
 .category-nav-name {

@@ -55,9 +55,7 @@ function App() {
             setSoundDialogOpen(false);
           }}
         />
-      ) : (
-        <></>
-      )}
+      ) : null}
       <SoundPanel categories={categories} directoryId={directory?.folder_id} />
     </main>
   );

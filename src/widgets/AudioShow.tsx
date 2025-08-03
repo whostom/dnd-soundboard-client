@@ -6,92 +6,109 @@ import WavesurferPlayer from "@wavesurfer/react";
 import RegionsPlugin, {
   type Region,
 } from "wavesurfer.js/dist/plugins/regions.js";
-import { useImmer } from "use-immer";
+import WaveSurfer from "wavesurfer.js";
 
 function AudioShow({ audio }: { audio: File }) {
+  const waveSurfer = useRef<WaveSurfer | null>(null);
   const regions = RegionsPlugin.create();
   const importRegion = useRef<Region | null>(null);
-  const [playableAudio, setPlayableAudio] = useImmer<HTMLAudioElement | null>(
-    null,
-  );
-  // const playableAudio = useRef<HTMLAudioElement | null>(null);
-
-  const regionStart = useRef<number>(0);
-  const regionEnd = useRef<number>(0);
-
-  useEffect(() => {
-    const url = URL.createObjectURL(audio);
-    setPlayableAudio(new Audio(url));
-    // playableAudio.current = new Audio(url);
-
-    return () => URL.revokeObjectURL(url);
-  }, [audio]);
 
   return (
     <>
       <div className="audio-visualizer">
-        {playableAudio != null ? (
-          <WavesurferPlayer
-            media={playableAudio}
-            plugins={[regions]}
-            normalize={true}
-            onDecode={() => {
-              importRegion.current = regions.addRegion({
-                start: 0,
-                end: 10,
-                content: "Import range (max 15 seconds)",
-                color: "rgba(0,0,0,0.2)",
-                drag: true,
-                resize: true,
-                minLength: 0.5,
-              });
-
-              // regions.on("region-update", (region, side) => {
-              //   if (side == "start") {
-              //     regionStart.current = region.start;
-              //   } else if (side == "end") {
-              //     regionEnd.current = region.end;
-              //   }
-              //   console.log("regionStart", regionStart.current);
-              //   console.log("regionEnd", regionEnd.current);
-              // });
-              // regions.on("region-out", () => {
-              //   if (playableAudio == null) return;
-              //   playableAudio.currentTime = regionEnd.current;
-              //   playableAudio.pause();
-              // });
-            }}
-          />
-        ) : null}
+        <WavesurferPlayer
+          media={new Audio(URL.createObjectURL(audio))}
+          onReady={(wv) => {
+            waveSurfer.current = wv;
+          }}
+          plugins={[regions]}
+          normalize={true}
+          onDecode={() => {
+            importRegion.current = regions.addRegion({
+              start: 0,
+              end: 10,
+              content: "Import range (max 15 seconds)",
+              color: "rgba(0,0,0,0.2)",
+              drag: true,
+              resize: true,
+              minLength: 0.5,
+            });
+            importRegion.current.on("update", (side) => {
+              if (waveSurfer.current == null) return;
+              if (importRegion.current == null) return;
+              if (side == "start") {
+                if (
+                  waveSurfer.current.getCurrentTime() <
+                  importRegion.current.start
+                ) {
+                  waveSurfer.current.setTime(importRegion.current.start);
+                }
+              } else if (side == "end") {
+                if (
+                  waveSurfer.current.getCurrentTime() > importRegion.current.end
+                ) {
+                  waveSurfer.current.setTime(importRegion.current.end);
+                }
+              }
+            });
+          }}
+          onAudioprocess={(wv, currentTime) => {
+            if (importRegion.current == null) return;
+            if (currentTime > importRegion.current.end) {
+              wv.stop();
+              wv.setTime(importRegion.current.end);
+            }
+          }}
+        />
       </div>
       <button
         onClick={() => {
-          if (playableAudio == null) return;
-          console.log(regionEnd.current);
-          console.log(playableAudio.currentTime);
-          if (playableAudio.currentTime >= regionEnd.current) {
-            playableAudio.currentTime = regionStart.current;
-          }
-          playableAudio.play();
+          if (waveSurfer.current == null) return;
+          waveSurfer.current.play();
         }}
       >
         Play
       </button>
       <button
         onClick={() => {
-          if (playableAudio == null) return;
-          playableAudio.pause();
+          if (waveSurfer.current == null) return;
+          waveSurfer.current.pause();
         }}
       >
         Pause
       </button>
       <button
         onClick={() => {
-          if (playableAudio == null) return;
-          playableAudio.currentTime = regionStart.current;
+          if (waveSurfer.current == null) return;
+          if (importRegion.current == null) return;
+          waveSurfer.current.pause();
+          waveSurfer.current.setTime(importRegion.current.start);
         }}
       >
         Reset
+      </button>
+      <button
+        onClick={() => {
+          if (waveSurfer.current == null) return;
+
+          // if (importRegion.current == null) return;
+          // waveSurfer.current.pause();
+          // waveSurfer.current.setTime(importRegion.current.start);
+        }}
+      >
+        Zoom Out
+      </button>
+      <button
+        onClick={() => {
+          if (waveSurfer.current == null) return;
+          // waveSurfer.current.
+          // waveSurfer.current.zoom();
+          // if (importRegion.current == null) return;
+          // waveSurfer.current.pause();
+          // waveSurfer.current.setTime(importRegion.current.start);
+        }}
+      >
+        Zoom In
       </button>
       <button
         onClick={() => {

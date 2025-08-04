@@ -13,6 +13,8 @@ function AudioShow({ audio }: { audio: File }) {
   const regions = RegionsPlugin.create();
   const importRegion = useRef<Region | null>(null);
 
+  const timePos = useRef<number>(0);
+
   return (
     <>
       <div className="audio-visualizer">
@@ -20,6 +22,18 @@ function AudioShow({ audio }: { audio: File }) {
           media={new Audio(URL.createObjectURL(audio))}
           onReady={(wv) => {
             waveSurfer.current = wv;
+          }}
+          minPxPerSec={1}
+          onClick={(wv, x, y) => {
+            if (importRegion.current == null) return;
+
+            if (wv.getCurrentTime() < importRegion.current.start) {
+              wv.setTime(timePos.current);
+            } else if (wv.getCurrentTime() > importRegion.current.end) {
+              wv.setTime(timePos.current);
+            }
+
+            timePos.current = wv.getCurrentTime();
           }}
           plugins={[regions]}
           normalize={true}
@@ -29,10 +43,11 @@ function AudioShow({ audio }: { audio: File }) {
               end: 10,
               content: "Import range (max 15 seconds)",
               color: "rgba(0,0,0,0.2)",
-              drag: true,
+              drag: false,
               resize: true,
               minLength: 0.5,
             });
+
             importRegion.current.on("update", (side) => {
               if (waveSurfer.current == null) return;
               if (importRegion.current == null) return;
@@ -42,15 +57,20 @@ function AudioShow({ audio }: { audio: File }) {
                   importRegion.current.start
                 ) {
                   waveSurfer.current.setTime(importRegion.current.start);
+                  timePos.current = waveSurfer.current.getCurrentTime();
                 }
               } else if (side == "end") {
                 if (
                   waveSurfer.current.getCurrentTime() > importRegion.current.end
                 ) {
                   waveSurfer.current.setTime(importRegion.current.end);
+                  timePos.current = waveSurfer.current.getCurrentTime();
                 }
               }
             });
+            // importRegion.current.on("", () => {
+            //   console.log("przesuwa mnie");
+            // });
           }}
           onAudioprocess={(wv, currentTime) => {
             if (importRegion.current == null) return;
@@ -58,6 +78,7 @@ function AudioShow({ audio }: { audio: File }) {
               wv.stop();
               wv.setTime(importRegion.current.end);
             }
+            timePos.current = wv.getCurrentTime();
           }}
         />
       </div>
@@ -83,6 +104,7 @@ function AudioShow({ audio }: { audio: File }) {
           if (importRegion.current == null) return;
           waveSurfer.current.pause();
           waveSurfer.current.setTime(importRegion.current.start);
+          timePos.current = waveSurfer.current.getCurrentTime();
         }}
       >
         Reset

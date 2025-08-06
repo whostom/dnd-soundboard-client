@@ -7,6 +7,10 @@ import RegionsPlugin, {
 import WaveSurfer from "wavesurfer.js";
 import HoverPlugin from "wavesurfer.js/dist/plugins/hover.js";
 import calculateTimeDisplay from "../calculate-time-display";
+import AudioControlButton from "./AudioControlButton";
+import PlayArrowIcon from "../svg/play-arrow-icon";
+import PauseIcon from "../svg/pause-icon";
+import StopIcon from "../svg/stop-icon";
 
 function AudioShow({
   audio,
@@ -100,34 +104,36 @@ function AudioShow({
           onAudioprocess={onAudioProcess}
         />
       </div>
-      <button
-        onClick={() => {
-          if (waveSurfer.current == null) return;
-          waveSurfer.current.play();
-        }}
-      >
-        Play
-      </button>
-      <button
-        onClick={() => {
-          if (waveSurfer.current == null) return;
-          waveSurfer.current.pause();
-        }}
-      >
-        Pause
-      </button>
-      <button
-        onClick={() => {
-          if (waveSurfer.current == null) return;
-          if (importRegion.current == null) return;
-          waveSurfer.current.pause();
-          waveSurfer.current.setTime(importRegion.current.start);
-          timePos.current = waveSurfer.current.getCurrentTime();
-        }}
-      >
-        Reset
-      </button>
-      <button
+      <div className="audio-control">
+        <AudioControlButton
+          onClick={() => {
+            if (waveSurfer.current == null) return;
+            waveSurfer.current.pause();
+          }}
+        >
+          <PauseIcon size="30px" />
+        </AudioControlButton>
+        <AudioControlButton
+          onClick={() => {
+            if (waveSurfer.current == null) return;
+            waveSurfer.current.play();
+          }}
+        >
+          <PlayArrowIcon size="30px" />
+        </AudioControlButton>
+        <AudioControlButton
+          onClick={() => {
+            if (waveSurfer.current == null) return;
+            if (importRegion.current == null) return;
+            waveSurfer.current.pause();
+            waveSurfer.current.setTime(importRegion.current.start);
+            timePos.current = waveSurfer.current.getCurrentTime();
+          }}
+        >
+          <StopIcon size="30px" />
+        </AudioControlButton>
+      </div>
+      {/* <button
         onClick={() => {
           if (waveSurfer.current == null) return;
         }}
@@ -140,7 +146,7 @@ function AudioShow({
         }}
       >
         Zoom In
-      </button>
+      </button> */}
     </>
   );
 }

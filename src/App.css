@@ -201,7 +201,7 @@ emoji-picker {
 
 .category-button {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   padding: 15px 20px;
   background: transparent;
@@ -209,7 +209,8 @@ emoji-picker {
   border-radius: 5px;
   position: relative;
   box-sizing: border-box;
-  width: max-content;
+  min-width: 200px;
+  /* width: max-content; */
 }
 
 .category-button:hover {
@@ -217,13 +218,25 @@ emoji-picker {
   background-color: rgba(0, 0, 0, 0.3);
 }
 
+.category-button-text {
+  white-space: nowrap;
+  text-align: center;
+  width: 100%;
+}
+
+.category-button .arrow-down-icon {
+  width: 50px;
+}
+
 .category-select {
   position: absolute;
   background-color: white;
   width: 100%;
+  /* min-width: min-content; */
 
   top: 100%;
   left: 0;
+  z-index: 99;
 }
 
 .category-select-option {
@@ -241,11 +254,6 @@ emoji-picker {
   width: 100%;
   height: fit-content;
   position: relative;
-}
-
-.over-visualizer-canvas {
-  position: absolute;
-  inset: 0;
 }
 
 /* .directories-loading {

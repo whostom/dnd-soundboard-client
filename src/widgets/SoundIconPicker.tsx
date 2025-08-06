@@ -1,4 +1,3 @@
-// import EmojiPicker, { Categories, EmojiStyle, Theme } from "emoji-picker-react";
 import { useState } from "react";
 import ChooseEmojiIcon from "../svg/choose-emoji-icon";
 import EmojiPickerEmbed from "./EmojiPickerEmbed";

@@ -58,6 +58,7 @@ function CategoryPicker({
                 key={index}
                 onClick={() => {
                   setChoosenCategory(category);
+                  onCategoryChoosen(category);
                 }}
                 className="category-select-option"
               >

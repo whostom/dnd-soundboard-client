@@ -11,6 +11,7 @@ import type { ServerResponse } from "./aliases/server-response";
 import fetchToServer from "./fetch-to-server";
 
 function App() {
+  // const x: number = "foo";
   const [directory, setDirectory] = useState<
     | {
         folder_id: number;

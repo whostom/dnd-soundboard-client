@@ -31,12 +31,24 @@ function SoundIconPicker({
         <div
           className="emoji-picker-background"
           onClick={() => {
-            console.log(customElements.get("emoji-picker"));
             setPickerOpen(false);
           }}
         ></div>
       ) : null}
-      <EmojiPickerEmbed open={pickerOpen} />
+      <EmojiPickerEmbed
+        onEmojiChoosen={(emoji) => {
+          if (emoji == "block") {
+            onEmojiChoosen("");
+            setEmoji(null);
+            setPickerOpen(false);
+          } else {
+            onEmojiChoosen(emoji);
+            setEmoji(emoji);
+            setPickerOpen(false);
+          }
+        }}
+        open={pickerOpen}
+      />
       {/* <EmojiPicker
         onEmojiClick={(emojiData) => {
           if (emojiData.emoji == "block") {

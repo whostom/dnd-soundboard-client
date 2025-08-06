@@ -134,8 +134,10 @@ hr {
   inset: 0;
 }
 
-.emoji-picker {
-  position: absolute !important;
+emoji-picker {
+  position: absolute;
+  --emoji-font-family: "Noto Color Emoji", sans-serif;
+  z-index: 100;
 }
 
 .emoji {

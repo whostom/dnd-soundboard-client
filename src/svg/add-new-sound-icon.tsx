@@ -14,4 +14,4 @@ function AddNewSoundIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-export default AddNewSoundIcon;
+export default Icon(AddNewSoundIcon);

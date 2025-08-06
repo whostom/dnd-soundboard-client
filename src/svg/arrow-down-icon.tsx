@@ -14,4 +14,4 @@ function ArrowDownIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-export default ArrowDownIcon;
+export default Icon(ArrowDownIcon);

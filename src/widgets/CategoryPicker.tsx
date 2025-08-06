@@ -24,9 +24,7 @@ function CategoryPicker({
         .includes(categoryPickerRef.current);
 
       if (!withinBoundaries) {
-        if (selectOpen) {
-          setSelectOpen(false);
-        }
+        setSelectOpen(false);
       }
     };
 

@@ -14,4 +14,4 @@ function PlayArrowIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-export default PlayArrowIcon;
+export default Icon(PlayArrowIcon);

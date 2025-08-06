@@ -14,4 +14,4 @@ function SearchIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-export default SearchIcon;
+export default Icon(SearchIcon);

@@ -14,4 +14,4 @@ function ThreeDotsIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-export default ThreeDotsIcon;
+export default Icon(ThreeDotsIcon);

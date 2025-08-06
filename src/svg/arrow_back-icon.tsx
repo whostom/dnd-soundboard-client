@@ -14,4 +14,4 @@ function ArrowBackIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-export default ArrowBackIcon;
+export default Icon(ArrowBackIcon);

@@ -14,4 +14,4 @@ function MenuIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-export default MenuIcon;
+export default Icon(MenuIcon);

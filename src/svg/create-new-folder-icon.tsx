@@ -14,4 +14,4 @@ function CreateNewFolderIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-export default CreateNewFolderIcon;
+export default Icon(CreateNewFolderIcon);

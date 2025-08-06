@@ -14,4 +14,4 @@ function ChooseEmojiIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-export default ChooseEmojiIcon;
+export default Icon(ChooseEmojiIcon);

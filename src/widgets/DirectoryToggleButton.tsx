@@ -1,4 +1,3 @@
-import { useState } from "react";
 import ArrowBackIcon from "../svg/arrow_back-icon";
 import MenuIcon from "../svg/menu-icon";
 

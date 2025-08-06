@@ -4,7 +4,6 @@ import fetchToServer from "../fetch-to-server";
 import PlayArrowIcon from "../svg/play-arrow-icon";
 import ThreeDotsIcon from "../svg/three-dots-icon";
 import { useEffect, useRef } from "react";
-// import { Emoji, EmojiStyle } from "emoji-picker-react";
 
 function SoundButton({ sound }: { sound: Sound }) {
   const buttonRef = useRef<HTMLDivElement>(null);
@@ -33,14 +32,13 @@ function SoundButton({ sound }: { sound: Sound }) {
       <button className="sound-button-menu-button">
         <ThreeDotsIcon />
       </button>
-      <div className="sound-button-icon emoji">{sound.name == "invisible" ? <img src='/src/twardywaz.jpg' className='solid'/> : sound.icon}</div>
-      {/* <div className="sound-button-icon">
-        <Emoji
-          unified={sound.icon.codePointAt(0)!.toString(16)}
-          emojiStyle={EmojiStyle.GOOGLE}
-          size={90}
-        />
-      </div> */}
+      <div className="sound-button-icon emoji">
+        {sound.name == "invisible" ? (
+          <img src="/src/assets/twardywaz.jpg" className="solid" />
+        ) : (
+          sound.icon
+        )}
+      </div>
       <div className="sound-button-name">{sound.name}</div>
       <div className="sound-button-play-icon">
         <PlayArrowIcon />

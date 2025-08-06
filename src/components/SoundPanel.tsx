@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import fetchToServer from "../fetch-to-server";
 import SoundButton from "../widgets/SoundButton";
 import type { Sound } from "../aliases/sound";
-// import type { SoundCategory } from "../aliases/sound-category";
 import type { ServerResponse } from "../aliases/server-response";
 import CategoryNav from "../widgets/CategoryNav";
 import type { SoundCategory } from "../aliases/sound-category";
@@ -38,13 +37,14 @@ function SoundPanel({
           sounds.filter((sound) => sound.category_id == category.category_id)
             .length == 0 ? null : (
             <CategoryNav key={category.category_id} name={category.name}>
-              {sounds.map((sound, index) => (
-                sound.category_id == category.category_id ? <SoundButton sound={sound} key={index}></SoundButton> : null
-              ))}
+              {sounds.map((sound, index) =>
+                sound.category_id == category.category_id ? (
+                  <SoundButton sound={sound} key={index}></SoundButton>
+                ) : null,
+              )}
             </CategoryNav>
           ),
         )
-        // sounds.map((sound, index) => <SoundButton sound={sound} key={index} />)
       )}
     </div>
   );

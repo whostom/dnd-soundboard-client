@@ -1,5 +1,3 @@
-import type { SoundCategory } from "../aliases/sound-category";
-
 function UploadButton({
   disabled,
   onClick,

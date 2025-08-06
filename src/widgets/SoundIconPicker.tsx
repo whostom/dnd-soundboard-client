@@ -37,82 +37,17 @@ function SoundIconPicker({
       ) : null}
       <EmojiPickerEmbed
         onEmojiChoosen={(emoji) => {
-          if (emoji == "block") {
-            onEmojiChoosen("");
-            setEmoji(null);
-            setPickerOpen(false);
-          } else {
-            onEmojiChoosen(emoji);
-            setEmoji(emoji);
-            setPickerOpen(false);
-          }
+          onEmojiChoosen(emoji);
+          setEmoji(emoji);
+          setPickerOpen(false);
         }}
-        open={pickerOpen}
-      />
-      {/* <EmojiPicker
-        onEmojiClick={(emojiData) => {
-          if (emojiData.emoji == "block") {
-            onEmojiChoosen("");
-            setEmoji(null);
-          } else {
-            onEmojiChoosen(emojiData.emoji);
-            setEmoji(emojiData.emoji);
-          }
+        onDeletingButtonClick={() => {
+          onEmojiChoosen("");
+          setEmoji(null);
           setPickerOpen(false);
         }}
         open={pickerOpen}
-        className="emoji-picker"
-        emojiStyle={EmojiStyle.GOOGLE}
-        theme={Theme.DARK}
-        lazyLoadEmojis={true}
-        skinTonesDisabled={true}
-        searchPlaceHolder="Szukaj"
-        customEmojis={[
-          {
-            names: ["Usuń wybór emoji"],
-            imgUrl: "https://cdn-icons-png.flaticon.com/512/3114/3114801.png",
-            id: "block",
-          },
-        ]}
-        categories={[
-          {
-            category: Categories.CUSTOM,
-            name: "Usuń emoji",
-          },
-          {
-            category: Categories.SMILEYS_PEOPLE,
-            name: "Ludzie",
-          },
-          {
-            category: Categories.ANIMALS_NATURE,
-            name: "Natura",
-          },
-          {
-            category: Categories.FOOD_DRINK,
-            name: "Jedzenie",
-          },
-          {
-            category: Categories.TRAVEL_PLACES,
-            name: "Miejsca",
-          },
-          {
-            category: Categories.ACTIVITIES,
-            name: "Aktywności",
-          },
-          {
-            category: Categories.OBJECTS,
-            name: "Przedmioty",
-          },
-          {
-            category: Categories.SYMBOLS,
-            name: "Symbole",
-          },
-          {
-            category: Categories.FLAGS,
-            name: "Flagi",
-          },
-        ]}
-      /> */}
+      />
     </>
   );
 }

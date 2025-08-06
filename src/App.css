@@ -131,13 +131,22 @@ hr {
 
 .emoji-picker-background {
   position: fixed;
-  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100vw;
+  height: 100vh;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 emoji-picker {
   position: absolute;
-  --emoji-font-family: "Noto Color Emoji", sans-serif;
   z-index: 100;
+  --emoji-font-family: "Noto Color Emoji", sans-serif;
+  --emoji-size: 1.45em;
+  --num-columns: 7;
+  width: 450px;
+  height: 600px;
 }
 
 .emoji {

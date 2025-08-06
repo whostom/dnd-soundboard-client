@@ -1,14 +1,19 @@
 import type { Picker } from "emoji-picker-element";
 import type { EmojiClickEvent, Emoji } from "emoji-picker-element/shared";
 import { useCallback, useEffect, useRef } from "react";
+import { createRoot } from "react-dom/client";
 import isCustomEmoji from "../is-custom-emoji";
+import pl from "emoji-picker-element/i18n/pl";
+import RemoveEmojiButton from "./removeEmojiButton";
 
 function EmojiPickerEmbed({
   open,
   onEmojiChoosen,
+  onDeletingButtonClick,
 }: {
   open: boolean;
   onEmojiChoosen: (emoji: string) => void;
+  onDeletingButtonClick: () => void;
 }) {
   const emojiPickerRef = useRef<Picker | null>(null);
 
@@ -30,16 +35,27 @@ function EmojiPickerEmbed({
     if (node) {
       node.addEventListener("emoji-click", onEmojiClick);
 
+      node.i18n = pl;
+      node.locale = "pl";
+
       const shadowDom = node.shadowRoot;
       if (shadowDom != null) {
-        // Delete skintone button cause we don't use skin tone
-        const skinButton = shadowDom.querySelector(".skintone-button-wrapper");
-        skinButton?.remove();
+        // Delete skintone support cause we don't use skin tone
+        const skintoneList = shadowDom.querySelector("#skintone-list");
+        skintoneList?.remove();
+        const skintoneDescription = shadowDom.querySelector(
+          "#skintone-description",
+        );
+        skintoneDescription?.remove();
 
-        // Fix padding after deleting skintone button
-        const searchRow = shadowDom.querySelector<HTMLElement>(".search-row");
-        if (searchRow != null) {
-          searchRow.style.paddingInlineEnd = "var(--emoji-padding)";
+        // Replace skintone button with my own delete emoji button
+        const skinButtonWrapper = shadowDom.querySelector(
+          ".skintone-button-wrapper",
+        );
+        if (skinButtonWrapper != null) {
+          createRoot(skinButtonWrapper).render(
+            <RemoveEmojiButton onClick={onDeletingButtonClick} />,
+          );
         }
 
         // Delete favorites panel

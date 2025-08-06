@@ -4,7 +4,7 @@
   --color-sound-button: #0c111f;
   --color-sound-icon: #80466e;
   --color-detail: #ed9e6f;
-  --color-directory : #512f5c;
+  --color-directory: #512f5c;
 }
 main {
   width: 100%;
@@ -161,8 +161,8 @@ hr {
   height: 40px;
 }
 
-.file-button-text {
-}
+/* .file-button-text {
+} */
 
 .solid {
   width: 100%;
@@ -237,11 +237,11 @@ hr {
   inset: 0;
 }
 
-.directories-loading {
+/* .directories-loading {
 }
 
 .directories-text {
-}
+} */
 
 #search-panel {
   grid-area: search-panel;
@@ -251,7 +251,7 @@ hr {
 }
 
 #sound-panel {
-  grid-area: sound-panel;;
+  grid-area: sound-panel;
   padding: 20px;
   display: flex;
   gap: 20px;

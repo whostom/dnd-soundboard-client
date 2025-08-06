@@ -1,18 +1,39 @@
-import { useEffect, useRef } from "react";
-// import { AudioVisualizer } from "react-audio-visualize";
-import sendFileToServer from "../send-file-to-server";
-import type { ServerResponse } from "../aliases/server-response";
+import { useRef } from "react";
 import WavesurferPlayer from "@wavesurfer/react";
 import RegionsPlugin, {
   type Region,
   type RegionParams,
 } from "wavesurfer.js/dist/plugins/regions.js";
 import WaveSurfer from "wavesurfer.js";
+import HoverPlugin from "wavesurfer.js/dist/plugins/hover.js";
+import calculateTimeDisplay from "../calculate-time-display";
 
-function AudioShow({ audio }: { audio: File }) {
+function AudioShow({
+  audio,
+  onRegionChanged,
+}: {
+  audio: File;
+  onRegionChanged: (start: number, end: number) => void;
+}) {
+  const pixelsInSeconds = useRef<number>(51);
+
   const waveSurfer = useRef<WaveSurfer | null>(null);
   const regions = RegionsPlugin.create();
   const importRegion = useRef<Region | null>(null);
+  const importRegionOptions: RegionParams = {
+    start: 0,
+    end: 10,
+    content: "Import range (max 15 seconds)",
+    color: "rgba(0,0,0,0.2)",
+    drag: false,
+    resize: true,
+    minLength: 0.5,
+  };
+
+  const hover = HoverPlugin.create({
+    formatTimeCallback: (seconds) =>
+      calculateTimeDisplay(seconds, pixelsInSeconds.current),
+  });
 
   const timePos = useRef<number>(0);
 
@@ -72,8 +93,8 @@ function AudioShow({ audio }: { audio: File }) {
           onReady={(wv) => {
             waveSurfer.current = wv;
           }}
-          plugins={[regions]}
           onClick={onWavesurferClick}
+          plugins={[regions, hover]}
           normalize={true}
           onDecode={onAudioDecode}
           onAudioprocess={onAudioProcess}
